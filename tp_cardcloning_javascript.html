@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TP JAVASCRIPT 3</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .card{
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>users</h1>
+        <div class="users">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" id="out">
+            <div class="col-xs-12 col-sm-4 diiv cardboi" style="display: none;">
+                <div class="card">
+                    <img src="images/1.jpg" alt="pool" class="card-img-top userpicture">
+                    <div class="card-body">
+                        <p class="card-text text-justify">
+                            <h4 class="username">Titre Lorem</h4>                    
+                            <span class="userbio">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima hic, id obcaecati a
+                            impedit illum atque reiciendis, iure architecto similique autem rem quidem quod, nihil quis
+                            illo odio recusandae!
+                            Ullam.
+                            </span>
+                        </p>
+                        <a class="btn btn-primary userhref">yeyyet</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>    var users = [
+ 
+            {
+                picture: 'http://lorempixel.com/400/200/people/8/',
+                name: 'Bob',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/5/',
+                name: 'Hesoyam',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/7/',
+                name: 'Gally',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/2/',
+                name: 'Aymane',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/5/',
+                name: 'Haitam',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/1/',
+                name: 'Cobby',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+
+        ];
+        function showUsers(usersArray, id) {
+                var cardb = document.querySelector('.cardboi');
+                var divinsert = document.querySelector("#"+id);
+            for(z in usersArray){
+                    var t = cardb.cloneNode(true);
+                    t.style.display = 'block';
+                    t.querySelector('.userpicture').src = usersArray[z].picture;
+                    t.querySelector('.username').innerHTML = usersArray[z].name;
+                    t.querySelector('.userbio').innerHTML = usersArray[z].bio;
+                    t.querySelector('.userhref').href = usersArray[z].href;
+                    divinsert.appendChild(t);              
+            }
+        }      
+        showUsers(users, 'out');
+
+        function boo(s){
+            console.log("boo "+(s));
+            return boo(s+1);
+        }
+        boo(1);
+</script>
+<script src="./node_modules/jquery-slim/dist/jquery.slim.min.js"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
