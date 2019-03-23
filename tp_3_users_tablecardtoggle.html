@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TP JAVASCRIPT 3</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <style>
+        .card{
+            margin-bottom: 10px;
+        }
+        td img{
+            max-height: 120px;
+        }
+        table tr td:nth-child(3){
+            max-width: 350px;
+        }
+      
+    </style>
+
+</head>
+<body>
+    
+    <div class="container">
+            <h1 class="text-center display-3">Users</h1>
+               <label><h5>Toggle : </h5></label> <button class="btn btn-secondary " id="totablebtn">to table</button>
+                <hr>
+        <div id="tableout" style="display: none;">
+            
+        </div>
+        <div id="cardsout">
+
+        
+        <div class="row" id="out">
+            <div class="col-xs-12 col-sm-4 diiv cardboi" style="display: none;">
+                <div class="card">
+                    <img src="images/1.jpg" alt="pool" class="card-img-top userpicture">
+                    <div class="card-body">
+                        <p class="card-text text-justify">
+                            <h4 class="username">Titre Lorem</h4>                    
+                            <span class="userbio text-justify">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima hic, id obcaecati a
+                            impedit illum atque reiciendis, iure architecto similique autem rem quidem quod, nihil quis
+                            illo odio recusandae!
+                            Ullam.
+                            </span>
+                        </p>
+                        <a class="btn btn-primary userhref">visit</a>
+                        <a class="btn btn-info userinfomodify"  type="button"  data-toggle="modal" data-target="#exampleModalPreview">Modify</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade right" id="exampleModalPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalPreviewLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="name">Name : </label>
+                    <input type="text" class="form-control" id="inputname" placeholder="input name">
+                   
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Bio : </label>
+                    <textarea class="form-control" id="inputbio" rows="5" placeholder="input user bio"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="name">User link : </label>
+                    <input type="text" class="form-control" id="inputlink" placeholder="input user link">
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalclosebtn">Close</button>
+                <button type="button" class="btn btn-primary" id="submitbtn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end -->
+<script>
+    function c(cc) {
+        console.log(cc);
+    } 
+
+    function getparentbyClass(element, classtarget) {
+            if (element != undefined) {
+                if (element.parentNode.classList.contains(classtarget))
+                    return element.parentNode;
+                else
+                    return getparentbyClass(element.parentNode, classtarget);
+
+            }
+            else
+                return undefined;
+
+        }
+    function showUsers(usersArray, id) {
+            var cardb = document.querySelector('.cardboi');
+            var divinsert = document.querySelector("#" + id);
+            var i = 0;
+            for (z in usersArray) {
+                var t = cardb.cloneNode(true);
+                t.style.display = 'block';
+                t.id = "card_" + (i++);
+                t.querySelector('.userpicture').src = usersArray[z].picture;
+                t.querySelector('.username').innerHTML = usersArray[z].name;
+                t.querySelector('.userbio').innerHTML = usersArray[z].bio;
+                t.querySelector('.userhref').href = usersArray[z].href;
+                t.querySelector(".userinfomodify").addEventListener('click', function (event) {
+                    var parent = getparentbyClass(this, "cardboi");
+
+
+                });
+                divinsert.appendChild(t);
+            }
+        }
+    function InsertTD(row, val) {
+        var td = document.createElement('td');
+        td.style.border = "1px solid black";
+        td.innerHTML = val;
+        row.append(td);
+    }   
+    function UserstoTable(usersArray, id) {
+            var usrtable = document.createElement('table');
+            usrtable.innerHTML = "<thead><tr><th>Picture</th><th>Name</th><th>Bio</th><th>Link</th></tr></thead>"
+            usrtable.id = "userstable";
+            usrtable.className = "table table-striped table-dark table-hover";
+
+
+            var divinsert = document.querySelector("#" + id);
+            var element;
+            var i = 0;
+            for (z in usersArray) {
+                element = usersArray[z];
+
+                var tr = document.createElement('tr');
+
+                tr.id = "user_" + (i++);
+                tr.innerHTML = "<td><img src = \"" + element.picture + "\" alt=\"image_" + i + "\"></td>";
+                tr.innerHTML += "\n";
+                tr.innerHTML += "<td class='username'>" + element.name + "</td>"
+                tr.innerHTML += "<td class='userbio' class='text-justify'>" + element.bio + "</td>"
+                tr.innerHTML += "<td class='userhref'><a href ='" + element.href + "'>" + element.href + "</a></td>"
+                usrtable.append(tr);
+            }
+            divinsert.append(usrtable);
+
+        }  
+</script>
+    <script>   
+      
+        var btntoggle = false;
+        var modifiedcard;
+        var cardsdiv = document.querySelector("#cardsout");
+        var tablediv = document.querySelector("#tableout");
+        var tablecardtogglebtn = document.querySelector("#totablebtn");
+        var users = [
+            {
+                picture: 'http://lorempixel.com/400/200/people/8/',
+                name: 'Bob',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/5/',
+                name: 'Hesoyam',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/7/',
+                name: 'Gally',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/2/',
+                name: 'Aymane',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/5/',
+                name: 'Haitam',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+            {
+                picture: 'http://lorempixel.com/400/200/people/1/',
+                name: 'Cobby',
+                bio: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum maiores quis est praesentium aspernatur sit deserunt placeat voluptate voluptatem exercitationem. Repellat sint sit nulla dignissimos voluptas corrupti. Deserunt, aliquam inventore?',
+                href: '#'
+            },
+        ];
+            
+        showUsers(users, 'out');
+        UserstoTable(users,'tableout');   
+        showUsers(users, 'out');
+        tablecardtogglebtn.addEventListener('click',function(){
+            if(btntoggle === false){
+                btntoggle = true;
+                this.innerHTML = "to cards";
+        $("#cardsout").slideToggle();
+        $("#tableout").slideToggle();
+            }
+               else {
+                    btntoggle = false;
+                this.innerHTML = "to table";
+        $("#cardsout").slideToggle();
+        $("#tableout").slideToggle();
+               }
+        });
+    $(".userinfomodify").on('click',function(){
+            modifiedcard = $(this); //modified card will hold (this) modify btn object so we can get the card number when the user hits the submit btn
+            $('#inputname').val($(this).siblings(".username").html());
+            $('#inputbio').html($(this).siblings(".userbio").html());
+            $('#inputlink').val($(this).siblings(".userhref").attr('href'));
+    });
+    $('#submitbtn').on('click',(event)=>{ // we will need the modifiedcard button object here.
+
+            modifiedcard.siblings(".username").html($('#inputname').val());
+            modifiedcard.siblings(".userbio").html($('#inputbio').val());
+            modifiedcard.siblings(".userhref").attr('href', $('#inputlink').val());
+            var cardnumber = modifiedcard.parents('.cardboi').attr('id').substr(5);
+            var userRow =  $('#userstable').find('#user_' + cardnumber);
+            
+           userRow.find('.username').html($('#inputname').val());
+           userRow.find('.userbio').html($('#inputbio').val());
+           userRow.find('.userhref').attr('href',$('#inputlink').val());
+           userRow.find('.userhref').html($('#inputlink').val());
+            
+            $('.modal').modal('toggle');
+    })
+</script>
+</body>
+</html>
