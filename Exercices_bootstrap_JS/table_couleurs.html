@@ -1,0 +1,118 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        table td {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+        }
+
+        .colordivs {
+            width: 50px;
+            height: 100px;
+            display: inline-block;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+    <pre>
+Bouton droit : Couleur White.
+Bouton gauche : Couleur courante.
+<label for="rowscount">Rows : </label><input type="text" name="rows" id="rowscount" value="5">
+
+<label for="colscount">cols : </label><input type="text" name="cols" id="colscount" value="5">
+<h3>Couleur courant est : <span id='currentcolorspan' style='color:black;text-shadow:0 0 2px black;font-weight:bold;font-size:150%;'>black</span></h3></pre>
+    <input type="button" value="Dessiner" id="drawbutton">
+    <hr>
+    <div id="targetdivtable">
+
+    </div>
+    <pre>Colors : </pre>
+    <div class='colordivs' style="background-color:black;"></div>
+    <div class='colordivs' style="background-color:green;"></div>
+    <div class='colordivs' style="background-color:lightgreen;"></div>
+    <div class='colordivs' style="background-color:grey;"></div>
+    <div class='colordivs' style="background-color:cyan;"></div>
+    <div class='colordivs' style="background-color:blue;"></div>
+    <div class='colordivs' style="background-color:pink;"></div>
+    <div class='colordivs' style="background-color:yellow;"></div>
+    <div class='colordivs' style="background-color:orange;"></div>
+    <div class='colordivs' style="background-color:white;"></div>
+    <div class='colordivs' style="background-color:red;"></div>
+    <script>
+        var targetdiv = document.querySelector("#targetdivtable");
+        var rowinput = document.querySelector("#rowscount");
+        var colinput = document.querySelector("#colscount");
+        var drawbutton = document.querySelector("#drawbutton");
+        var currentcolorspan = document.querySelector("#currentcolorspan");
+        var currentColor = 'black';
+        var colordivs = document.querySelectorAll(".colordivs");
+
+        function createTable(tableid, rows, cols) { //function that returns a table
+            var table = document.createElement('table');
+            table.id = tableid;
+            var tr;
+            for (var i = 0; i < rows; i++) {
+                tr = document.createElement('tr');
+                tr.innerHTML = '';
+                for (var j = 0; j < cols; j++)
+                    tr.innerHTML += '<td></td>';
+                table.appendChild(tr);
+            }
+            return table;
+        }
+
+        for (var i = 0; i < colordivs.length; i++) { //event for the variable currentColor
+            colordivs[i].addEventListener('click', function(event) {
+                currentColor = event.target.style.backgroundColor;
+                currentcolorspan.innerHTML = currentColor;
+                currentcolorspan.style.color = currentColor;
+            })
+        }
+        document.addEventListener('mousedown', (event) => { //event pour TDs de la table
+            if (event.target.nodeName == 'TD') {
+                if (event.button == 0) //left click
+                    event.target.style.backgroundColor = currentColor;
+                if (event.button == 2) //right click
+                {
+                    event.target.style.backgroundColor = 'white';
+                }
+            }
+        });
+        rowinput.addEventListener('keypress', function(event) { //event pour rows input(nombres uniquement)
+            event.preventDefault();
+
+            var keycode = String.fromCharCode(event.which || event.keyCode);
+            if (!isNaN(keycode))
+                rowinput.value += String.fromCharCode(event.keyCode);
+
+
+            console.log(keycode + ' is ' + typeof keycode + 'isNaN' + isNaN(keycode));
+        });
+        colinput.addEventListener('keypress', function(event) { //event for columns input(nombres uniquement)
+            event.preventDefault();
+
+            var keycode = String.fromCharCode(event.which || event.keyCode);
+            if (!isNaN(keycode))
+                colinput.value += String.fromCharCode(event.keyCode);
+        });
+
+
+
+        drawbutton.addEventListener('click', (event) => { // event  pour le button dessiner
+            var table = document.querySelector('#targettable');
+            if (table != null) {
+                targetdiv.replaceChild(createTable('targettable', rowinput.value, colinput.value), table);
+            } else {
+                targetdiv.appendChild(createTable('targettable', rowinput.value, colinput.value));
+            }
+        });
+    </script>
+</body>
+
+</html>
